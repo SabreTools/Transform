@@ -29,7 +29,7 @@ namespace Transform
 			// Otherwise, we figure out what the heck we're dealing with
 			foreach (string arg in args)
 			{
-				switch(arg)
+				switch (arg)
 				{
 					case "-?":
 					case "-h":
@@ -127,9 +127,9 @@ namespace Transform
 							return;
 						}
 						break;
-                    case "-ss":
+					case "-ss":
 					case "-sw":
-                    case "--split-short":
+					case "--split-short":
 					case "--split-word":
 						if (operation == TransformOperation.None)
 						{
@@ -269,17 +269,17 @@ Usage: Transform.exe [-bi | -by | -w | -b] <file> ...
 		{
 			// Default
 			None = 0,
-			
+
 			// Swaping operations
 			Bitswap,
 			Byteswap,
 			Wordswap,
 			WordByteswap,
-			
+
 			// Interleaving operations
 			InterleaveByte,
 			InterleaveWord,
-			
+
 			// Splitting operations
 			SplitOneByte,
 			SplitTwoBytes,
