@@ -181,7 +181,11 @@ namespace Transform
                         // If it's an output name, set that instead of interleaved
                         else if (arg.StartsWith("-out=") || arg.StartsWith("--out="))
                         {
+#if NETCOREAPP || NETSTANDARD2_1_OR_GREATER
+                            output = arg.TrimStart('-')["out=".Length..];
+#else
                             output = arg.TrimStart('-').Substring("out=".Length);
+#endif
                         }
                         // Otherwise, it's an invalid flag
                         else
@@ -393,9 +397,9 @@ Usage: Transform.exe [-bi | -by | -w | -b] <file> ...
             FileStream oddStream = File.Open(input + ".odd", FileMode.Create, FileAccess.Write);
 
             // Now get the binary readers and writers
-            BinaryReader bri = new BinaryReader(inputStream);
-            BinaryWriter bwe = new BinaryWriter(evenStream);
-            BinaryWriter bwo = new BinaryWriter(oddStream);
+            var bri = new BinaryReader(inputStream);
+            var bwe = new BinaryWriter(evenStream);
+            var bwo = new BinaryWriter(oddStream);
 
             // Now we loop and flip as we go
             bool even = true;
