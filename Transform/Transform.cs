@@ -47,6 +47,7 @@ namespace Transform
                             Help();
                             return;
                         }
+
                         break;
                     case "-by":
                     case "--byteswap":
@@ -60,6 +61,7 @@ namespace Transform
                             Help();
                             return;
                         }
+
                         break;
                     case "-w":
                     case "--wordswap":
@@ -73,6 +75,7 @@ namespace Transform
                             Help();
                             return;
                         }
+
                         break;
                     case "-wb":
                     case "--wordbyteswap":
@@ -86,6 +89,7 @@ namespace Transform
                             Help();
                             return;
                         }
+
                         break;
                     case "-inb":
                     case "--inter-byte":
@@ -99,6 +103,7 @@ namespace Transform
                             Help();
                             return;
                         }
+
                         break;
                     case "-inw":
                     case "--inter-word":
@@ -112,6 +117,7 @@ namespace Transform
                             Help();
                             return;
                         }
+
                         break;
                     case "-sb":
                     case "--split-byte":
@@ -125,6 +131,7 @@ namespace Transform
                             Help();
                             return;
                         }
+
                         break;
                     case "-ss":
                     case "-sw":
@@ -140,6 +147,7 @@ namespace Transform
                             Help();
                             return;
                         }
+
                         break;
                     case "-si":
                     case "--split-int":
@@ -153,6 +161,7 @@ namespace Transform
                             Help();
                             return;
                         }
+
                         break;
                     case "-sl":
                     case "--split-long":
@@ -166,6 +175,7 @@ namespace Transform
                             Help();
                             return;
                         }
+
                         break;
                     default:
                         // If we have a file, add it as a valid input
@@ -194,6 +204,7 @@ namespace Transform
                             Help();
                             return;
                         }
+
                         break;
                 }
             }
@@ -312,6 +323,7 @@ Usage: Transform.exe [-bi | -by | -w | -b] <file> ...
                     Console.WriteLine(input + " is not a valid file, exiting");
                     return false;
                 }
+
                 readers.Add(new BinaryReader(File.OpenRead(input)));
             }
 
@@ -517,6 +529,7 @@ Usage: Transform.exe [-bi | -by | -w | -b] <file> ...
                     while (input.Position < input.Length)
                     {
                         byte b = br.ReadByte();
+#pragma warning disable IDE0010
                         switch (operation)
                         {
                             case TransformOperation.Bitswap:
@@ -529,6 +542,7 @@ Usage: Transform.exe [-bi | -by | -w | -b] <file> ...
                                     r |= (byte)(b & 1);
                                     s--;
                                 }
+
                                 r <<= s;
                                 buffer[pos] = (byte)r;
                                 break;
@@ -537,10 +551,12 @@ Usage: Transform.exe [-bi | -by | -w | -b] <file> ...
                                 {
                                     buffer[pos - 1] = b;
                                 }
+
                                 if (pos % 2 == 0)
                                 {
                                     buffer[pos + 1] = b;
                                 }
+
                                 break;
                             case TransformOperation.Wordswap:
                                 buffer[3 - pos] = b;
@@ -553,6 +569,7 @@ Usage: Transform.exe [-bi | -by | -w | -b] <file> ...
                                 buffer[pos] = b;
                                 break;
                         }
+#pragma warning restore IDE0010
 
                         // Set the buffer position to default write to
                         pos = (pos + 1) % 4;
